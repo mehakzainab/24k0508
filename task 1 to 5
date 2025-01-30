@@ -1,0 +1,92 @@
+/*.
+mehak
+0508
+ Task 1 to 5 */
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    const int maxParticipants = 5;
+    string event1[maxParticipants], event2[maxParticipants];
+    int count1 = 0, count2 = 0,i=0; 
+
+    
+    while (true) {
+        int number;
+        cout << "Register for event (1 or 2, 0 to exit): ";
+        cin >> number;
+
+        if (number == 0) break; 
+
+        if (number == 1 && count1 < maxParticipants) {
+            cout << "Enter your name: ";
+            cin >> event1[count1++];
+        } 
+        else if (number == 2 && count2 < maxParticipants) {
+            cout << "Enter your name: ";
+            cin >> event2[count2++];
+        } 
+        else {
+            cout << "Event full or invalid choice!\n";
+        }
+        
+    }
+    //donation
+int donation;
+ donation=(count1+count2)*10;
+ cout<<"donation="<<donation;
+ 
+ //participant names in reverse
+     for (int i = count1 - 1; i >= 0; i--) {
+        cout << event1[i] << endl;
+    }
+
+    cout << "\nParticipants of Event 2 in Reverse Order:\n";
+    for (int i = count2 - 1; i >= 0; i--) {
+        cout << event2[i] << endl;
+    }
+ cout << "\nEvent Popularity Chart:\n";
+
+    cout << "Event 1: ";
+    for (int i = 0; i < count1; i++) {
+        cout << "*";
+    }
+    cout << " (" << count1 << " participants)" << endl;
+
+    cout << "Event 2: ";
+    for (int i = 0; i < count2; i++) {
+        cout << "*";
+    }
+    cout <<" (" <<count2 <<" participants)" << endl;
+ 
+    string name;
+    cout << "\nEnter a name to check: ";
+    cin >> name;
+
+  
+    for (int i = 0; i < count1; i++) {
+        if (event1[i] == name) {
+            cout << name << " is in Event 1.\n";
+            return 0;
+        }
+    }
+
+  
+    for (int i = 0; i < count2; i++) {
+        if (event2[i] == name) {
+            cout << name << " is in Event 2.\n";
+            return 0;
+        }
+    }
+
+    cout << name << " is not registered.\n";
+    return 0;
+
+
+ 
+}
+
+
+ 
