@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+const int NUM_CITIES = 4;
+const int DAYS_IN_MONTH = 28;
+const int WEEKS_IN_MONTH = 4;
+const int DAYS_IN_WEEK = 7;
+
+void getAQIData(int AQI[NUM_CITIES][DAYS_IN_MONTH]) {
+    for (int city = 0; city < NUM_CITIES; city++) {
+        cout << "Enter AQI data for City " << city + 1 << " (for 28 days):\n";
+        for (int day = 0; day < DAYS_IN_MONTH; day++) {
+            cout << "Day " << day + 1 << ": ";
+            cin >> AQI[city][day];
+        }
+    }
+}
+
+void calculateWeeklyAverages(int AQI[NUM_CITIES][DAYS_IN_MONTH], int weeklyAQI[NUM_CITIES][WEEKS_IN_MONTH]) {
+    for (int city = 0; city < NUM_CITIES; city++) {
+        for (int week = 0; week < WEEKS_IN_MONTH; week++) {
+            int totalAQI = 0;
+            for (int day = week * DAYS_IN_WEEK; day < (week + 1) * DAYS_IN_WEEK; day++) {
+                totalAQI += AQI[city][day];
+            }
+            weeklyAQI[city][week] = totalAQI / DAYS_IN_WEEK;
+        }
+    }
+}
+
+void calculateMonthlyAverages(int AQI[NUM_CITIES][DAYS_IN_MONTH], int monthlyAQI[NUM_CITIES]) {
+    for (int city = 0; city < NUM_CITIES; city++) {
+        int totalAQI = 0;
+        for (int day = 0; day < DAYS_IN_MONTH; day++) {
+            totalAQI += AQI[city][day];
+        }
+        monthlyAQI[city] = totalAQI / DAYS_IN_MONTH;
+    }
+}
+
+void findMostImprovedCity(int weeklyAQI[NUM_CITIES][WEEKS_IN_MONTH]) {
+    int maxImprovement = 0, bestCity = -1;
+    
+    for (int city = 0; city < NUM_CITIES; city++) {
+        int improvement = weeklyAQI[city][0] - weeklyAQI[city][3]; 
+        if (improvement > maxImprovement) {
+            maxImprovement = improvement;
+            bestCity = city;
+        }
+    }
+
+    if (bestCity != -1) {
+        cout << "\nCity with the most improved air quality: City " << bestCity + 1 << endl;
+    } else {
+        cout << "\nNo significant improvement detected.\n";
+    }
+}
+
+void displayCriticalPollutionDays(int AQI[NUM_CITIES][DAYS_IN_MONTH]) {
+    cout << "\n-- Critical Pollution Days (AQI above 150) --\n";
+    for (int city = 0; city < NUM_CITIES; city++) {
+        cout << "City " << city + 1 << ": ";
+        bool hasCriticalDays = false;
+
+        for (int day = 0; day < DAYS_IN_MONTH; day++) {
+            if (AQI[city][day] > 150) {
+                hasCriticalDays = true;
+                cout << "Day " << day + 1 << " ";
+            }
+        }
+
+        if (!hasCriticalDays) {
+            cout << "None";
+        }
+        cout << endl;
+    }
+}
+
+void compareAQIValues(int AQI[NUM_CITIES][DAYS_IN_MONTH]) {
+    cout << "\n-- AQI Comparison --\n";
+    for (int city = 0; city < NUM_CITIES; city++) {
+        int highestAQI = 0, lowestAQI = 9999;
+
+        for (int day = 0; day < DAYS_IN_MONTH; day++) {
+            highestAQI = max(highestAQI, AQI[city][day]);
+            lowestAQI = min(lowestAQI, AQI[city][day]);
+        }
+
+        cout << "City " << city + 1 << " - Highest AQI: " << highestAQI << ", Lowest AQI: " << lowestAQI << endl;
+    }
+}
+
+int main() {
+    int AQI[NUM_CITIES][DAYS_IN_MONTH];
+    int weeklyAQI[NUM_CITIES][WEEKS_IN_MONTH] = {0};
+    int monthlyAQI[NUM_CITIES] = {0};
+
+    getAQIData(AQI);
+    calculateWeeklyAverages(AQI, weeklyAQI);
+    calculateMonthlyAverages(AQI, monthlyAQI);
+
+    cout << "\n-- AQI REPORT --\n";
+    for (int city = 0; city < NUM_CITIES; city++) {
+        cout << "Weekly AQI for City " << city + 1 << ": ";
+        for (int week = 0; week < WEEKS_IN_MONTH; week++) {
+            cout << weeklyAQI[city][week] << " ";
+        }
+        cout << endl;
+    }
+
+    findMostImprovedCity(weeklyAQI);
+    displayCriticalPollutionDays(AQI);
+    compareAQIValues(AQI);
+
+    return 0;
+}
