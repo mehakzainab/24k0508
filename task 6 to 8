@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int numCities = 4, numDays = 7;
+    int airQuality[numCities][numDays];  
+    int avgAirQuality[numCities] = {0};        
+    int city, day;
+
+    cout << "-- ENTER AIR QUALITY DATA FOR 4 CITIES OVER A WEEK --" << endl;
+    for (city = 0; city < numCities; city++) {
+        for (day = 0; day < numDays; day++) {
+            cout << "Enter AQI for City " << city + 1 << " Day " << day + 1 << ": ";
+            cin >> airQuality[city][day];
+        }
+    }
+
+    int totalAQI;
+    for (city = 0; city < numCities; city++) {
+        totalAQI = 0;
+        for (day = 0; day < numDays; day++) {
+            totalAQI += airQuality[city][day];
+        }
+        avgAirQuality[city] = totalAQI / numDays;
+    }
+
+    cout << "\n-- AVERAGE AQI PER CITY --" << endl;
+    for (city = 0; city < numCities; city++) {
+        cout << "City " << city + 1 << ": " << avgAirQuality[city] << endl;
+    }
+
+    int worstAQI = avgAirQuality[0], worstCityIndex = 0;
+    for (city = 1; city < numCities; city++) {
+        if (avgAirQuality[city] > worstAQI) {
+            worstAQI = avgAirQuality[city];
+            worstCityIndex = city;
+        }
+    }
+    cout << "-- Worst Air Quality: " << worstAQI << " in City " << worstCityIndex + 1 << " --\n";
+
+    cout << "-- Critical Pollution Days (AQI > 150) --";
+    for (city = 0; city < numCities; city++) {
+        cout << "\nCity " << city + 1 << ":";
+        bool hasSeverePollution = false;
+        for (day = 0; day < numDays; day++) {
+            if (airQuality[city][day] > 150) {
+                hasSeverePollution = true;
+                cout << " ~Day " << day + 1;
+            }
+        }
+        if (!hasSeverePollution) {
+            cout << " None";
+        }
+    }
+
+    cout << "\n\n-- AQI Visualization (* = 50 AQI) --\n";
+    for (city = 0; city < numCities; city++) {
+        cout << "City " << city + 1 << ":\n";
+        for (day = 0; day < numDays; day++) {
+            int aqiBars = airQuality[city][day] / 50;
+            cout << "(" << airQuality[city][day] << ")  ";
+            for (int k = 0; k < aqiBars; k++) {
+                cout << "*";
+            }
+            cout << endl;
+        }
+    }
+    
+    return 0;
+}
