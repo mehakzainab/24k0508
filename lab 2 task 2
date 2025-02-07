@@ -1,0 +1,76 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int m, n;
+    cout << "Enter number of rows in Matrix 1 and 2: ";
+    cin >> m;
+    cout << "Enter number of columns in Matrix 1 and 2: ";
+    cin >> n;
+
+    int **a = new int *[m];
+    for (int i = 0; i < m; i++) {
+        a[i] = new int[n];
+    }
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << "Enter element for Matrix 1, Row " << i + 1 << " Col " << j + 1 << ": ";
+            cin >> *(*(a + i) + j);
+        }
+    }
+
+    int **b = new int *[m];
+    for (int i = 0; i < m; i++) {
+        b[i] = new int[n];
+    }
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << "Enter element for Matrix 2, Row " << i + 1 << " Col " << j + 1 << ": ";
+            cin >> *(*(b + i) + j);
+        }
+    }
+
+    int **sum = new int *[m];
+    int **diff = new int *[m];
+
+    for (int i = 0; i < m; i++) {
+        sum[i] = new int[n];
+        diff[i] = new int[n];
+    }
+
+    cout << "Addition of input matrices" << endl;
+    for (int i = 0; i < m; i++) {
+        cout << "|";
+        for (int j = 0; j < n; j++) {
+            sum[i][j] = a[i][j] + b[i][j];
+            cout << sum[i][j] << " | ";
+        }
+        cout << endl;
+    }
+
+    cout << "Subtraction of input matrices" << endl;
+    for (int i = 0; i < m; i++) {
+        cout << "|";
+        for (int j = 0; j < n; j++) {
+            diff[i][j] = a[i][j] - b[i][j];
+            cout << diff[i][j] << " | ";
+        }
+        cout << endl;
+    }
+
+    for (int i = 0; i < m; i++) {
+        delete[] a[i];
+        delete[] b[i];
+        delete[] sum[i];
+        delete[] diff[i];
+    }
+
+    delete[] a;
+    delete[] b;
+    delete[] sum;
+    delete[] diff;
+
+    return 0;
+}
