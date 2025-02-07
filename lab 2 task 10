@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int depth, rows, cols;
+
+    cout << "Enter depth: ";
+    cin >> depth;
+    cout << "Enter number of rows: ";
+    cin >> rows;
+    cout << "Enter number of columns: ";
+    cin >> cols;
+
+    int ***matrix = new int **[depth];
+    for (int d = 0; d < depth; d++) {
+        matrix[d] = new int *[rows];
+        for (int r = 0; r < rows; r++) {
+            matrix[d][r] = new int[cols];
+        }
+    }
+
+    cout << "Enter elements: " << endl;
+    for (int d = 0; d < depth; d++) {
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                cout << "Element[" << d + 1 << "][" << r + 1 << "][" << c + 1 << "] = ";
+                cin >> matrix[d][r][c];
+            }
+        }
+    }
+
+    cout << "\n3D Matrix:" << endl;
+    for (int d = 0; d < depth; d++) {
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                cout << matrix[d][r][c] << " ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
+
+    for (int d = 0; d < depth; d++) {
+        for (int r = 0; r < rows; r++) {
+            delete[] matrix[d][r];
+        }
+        delete[] matrix[d];
+    }
+    delete[] matrix;
+
+    return 0;
+}
