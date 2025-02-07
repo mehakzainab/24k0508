@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int size;
+    cout << "Enter the number of integers: ";
+    cin >> size;
+
+    int *arr = new int[size];
+
+    for (int i = 0; i < size; i++) {
+        cout << "Enter number " << i + 1 << ": ";
+        cin >> *(arr + i);
+    }
+
+    cout << "Entered integers: ";
+    for (int i = 0; i < size; i++) {
+        cout << *(arr + i) << " ";
+    }
+
+    int total = 0;
+    for (int i = 0; i < size; i++) {
+        total += *(arr + i);
+    }
+
+    cout << "\nSum of the entered integers: " << total << endl;
+
+    delete[] arr;
+    return 0;
+}
