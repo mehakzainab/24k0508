@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Tracker {
+private:
+    string name;
+    int goal;
+    int steps;
+    double calories;
+
+public:
+    Tracker(string n, int g) {
+        name = n;
+        goal = g;
+        steps = 0;
+        calories = 0;
+    }
+
+    void add(int s) {
+        steps += s;
+        calories += s * 0.04;
+    }
+
+    void show() {
+        cout << "Name: " << name << endl;
+        cout << "Step Goal: " << goal << endl;
+        cout << "Steps: " << steps << endl;
+        cout << "Calories: " << calories << "J" << endl;
+        if (steps >= goal) {
+            cout << "Great job! Goal reached!" << endl;
+        } else {
+            cout << "Keep going, Zara!" << endl;
+        }
+    }
+};
+
+int main() {
+    Tracker user("Zara", 1000);
+    user.add(300);
+    user.add(5200);
+    user.show();
+    return 0;
+}
