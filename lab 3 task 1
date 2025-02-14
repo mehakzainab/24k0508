@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Wallet {
+private:
+    string name;
+    double balance;
+    string history;
+
+public:
+    void setValues(string n, double b, string h) {
+        name = n;
+        balance = b;
+        history = h;
+    }
+
+    void addMoney(double amount) {
+        balance += amount;
+        history += "Added: $" + to_string(amount) + "\n";
+    }
+
+    void spendMoney(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            history += "Spent: $" + to_string(amount) + "\n";
+        } else {
+            cout << "\nNot enough money!";
+        }
+    }
+
+    void showHistory() {
+        cout << "History for " << name << ":" << endl;
+        cout << history;
+        cout << "\nBalance: $" << getBalance() << endl;
+    }
+
+    double getBalance() {
+        return balance;
+    }
+};
+
+int main() {
+    Wallet myWallet;
+    myWallet.setValues("Ali", 10040.5, "");
+    myWallet.addMoney(500);
+    myWallet.spendMoney(3000);
+    myWallet.showHistory();
+    return 0;
+}
+
