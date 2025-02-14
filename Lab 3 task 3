@@ -1,0 +1,86 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Library {
+private:
+    string books[10];
+    int total;
+    bool borrowed[10];
+
+public:
+    Library() {
+        total = 0;
+    }
+
+    void addBook(string name) {
+        if (total < 10) {
+            books[total] = name;
+            borrowed[total] = false;
+            total++;
+            cout << "Book added.\n";
+        } else {
+            cout << "Library is full!\n";
+        }
+    }
+
+    void borrowBook(string name) {
+        for (int i = 0; i < total; i++) {
+            if (books[i] == name) {
+                if (!borrowed[i]) {
+                    borrowed[i] = true;
+                    cout << "Book borrowed: " << name << endl;
+                    return;
+                } else {
+                    cout << "Already borrowed: " << name << endl;
+                    return;
+                }
+            }
+        }
+        cout << "Book not found.\n";
+    }
+
+    void returnBook(string name) {
+        for (int i = 0; i < total; i++) {
+            if (books[i] == name && borrowed[i]) {
+                borrowed[i] = false;
+                cout << "Book returned.\n";
+                return;
+            }
+        }
+        cout << "Book not found.\n";
+    }
+
+    void showBooks() {
+        if (total == 0) {
+            cout << "No books in library!\n";
+            return;
+        }
+        cout << "Available books:\n";
+        for (int i = 0; i < total; i++) {
+            if (!borrowed[i]) {
+                cout << books[i] << endl;
+            }
+        }
+    }
+};
+
+int main() {
+    Library myLibrary;
+
+    myLibrary.addBook("Alice in Wonderland");
+    myLibrary.addBook("The Jungle Book");
+    myLibrary.addBook("Peter Pan");
+
+    myLibrary.showBooks();
+
+    myLibrary.borrowBook("Harry Potter");
+    myLibrary.borrowBook("Alice in Wonderland");
+
+    myLibrary.showBooks();
+
+    myLibrary.returnBook("Alice in Wonderland");
+
+    myLibrary.showBooks();
+    return 0;
+}
