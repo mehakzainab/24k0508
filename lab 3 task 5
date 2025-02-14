@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Player {
+private:
+    string list[10];
+    int num;
+    string now;
+
+public:
+    Player() {
+        num = 0;
+        now = "";
+    }
+
+    void add(string name) {
+        if (num < 10) {
+            list[num] = name;
+            num++;
+            cout << "\"" << name << "\" added.\n";
+        } else {
+            cout << "Full!\n";
+        }
+    }
+
+    void remove(string name) {
+        int idx = -1;
+        for (int i = 0; i < num; i++) {
+            if (list[i] == name) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx != -1) {
+            for (int i = idx; i < num - 1; i++) {
+                list[i] = list[i + 1];
+            }
+            num--;
+            cout << "\"" << name << "\" removed.\n";
+        } else {
+            cout << "Not found.\n";
+        }
+    }
+
+    void play(string name) {
+        for (int i = 0; i < num; i++) {
+            if (list[i] == name) {
+                now = name;
+                cout << "Playing: \"" << name << "\"\n";
+                return;
+            }
+        }
+        cout << "Not in list!\n";
+    }
+
+    void show() {
+        if (num == 0) {
+            cout << "No songs!\n";
+            return;
+        }
+        cout << "List:\n";
+        for (int i = 0; i < num; i++) {
+            cout << list[i] << endl;
+        }
+    }
+};
+
+int main() {
+    Player p;
+    p.show();
+    p.add("Song 1");
+    p.play("Song 2");
+    p.add("Song 3");
+    p.add("Song 4");
+    p.play("Song 3");
+    p.remove("Song 5");
+    p.show();
+    return 0;
+}
