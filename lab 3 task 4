@@ -1,0 +1,52 @@
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Car {
+private:
+    string brand;
+    string model;
+    double tank;
+    double fuel;
+
+public:
+    Car(string b, string m, double t) {
+        brand = b;
+        model = m;
+        tank = t;
+        fuel = t;
+    }
+
+    void drive(double used) {
+        if (fuel >= used) {
+            fuel -= used;
+        } else {
+            cout << "Not enough fuel! Please refill.\n";
+        }
+    }
+
+    void refill(double amount) {
+        if (amount > 0 && (fuel + amount) <= tank) {
+            fuel += amount;
+        } else {
+            cout << "Cannot overfill the tank!\n";
+        }
+    }
+
+    void checkFuel() {
+        cout << "Fuel Level: " << fuel << "L" << endl;
+        if (fuel < (0.15 * tank)) {
+            cout << "Warning! Low fuel, please refill soon.\n";
+        }
+    }
+};
+
+int main() {
+    Car myCar("Ford", "Mustang", 50);
+    myCar.drive(10);
+    myCar.drive(40);
+    myCar.refill(2);
+    myCar.checkFuel();
+    return 0;
+}
