@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Car {
+    string brand;
+    string model;
+    float rentalPrice;
+    int days;
+    bool availabilityStatus;
+
+public:
+    Car(string b, string m, float r, int d, bool avail) {
+        brand = b;
+        model = m;
+        rentalPrice = r;
+        days = d;
+        availabilityStatus = avail;
+    }
+
+    bool isAvailable() {
+        return availabilityStatus;
+    }
+
+    void rent() {
+        if (availabilityStatus) {
+            float finalPrice = applyDiscount();
+            availabilityStatus = false;
+            cout << "Car is Rented. Final Rental Price: $" << finalPrice << endl;
+        } else {
+            cout << "Car not Available!" << endl;
+        }
+    }
+
+    float applyDiscount() { 
+        float discountedPrice = rentalPrice;
+        if (days > 5 && days <= 10) {
+            discountedPrice *= 0.95; 
+        } else if (days > 10) {
+            discountedPrice *= 0.90; 
+        }
+        return discountedPrice;
+    }
+};
+
+int main() {
+    Car c1("Suzuki", "Mehran", 200.5, 7, true);
+    c1.rent();
+
+    return 0;
+}
