@@ -1,0 +1,85 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Car {
+    string brand;
+    string model;
+    string regno;
+    float rentalPrice;
+    float totalRevenue;
+    int days;
+    bool availabilityStatus;
+
+public:
+    Car(string reg, string b, string m, float r, int d, bool avail)  : regno(reg), brand(b), model(m), rentalPrice(r),days(d), availabilityStatus(avail), totalRevenue(0) {}
+
+    Car(const Car &obj, string newRegno)  : regno(newRegno), brand(obj.brand), model(obj.model),rentalPrice(obj.rentalPrice), days(obj.days), availabilityStatus(obj.availabilityStatus), totalRevenue(obj.totalRevenue) {} // use const takay 
+ unnecessary copy na banay
+
+    ~Car() {}
+
+    bool isAvailable() {
+        return availabilityStatus;
+    }
+
+    void rent() {
+        if (availabilityStatus) {
+            float finalPrice = applyDiscount();
+            totalRevenue += finalPrice;
+            availabilityStatus = false;
+
+            cout << "Car " << regno << " rented. Final Rental Cost: $" << finalPrice << endl;
+            cout << "Total Revenue: $" << totalRevenue << endl;
+        } else {
+            cout << "Car not available." << endl;
+        }
+    }
+
+    float applyDiscount() {
+        float totalCost = rentalPrice * days;
+        if (days > 5 && days <= 10) {
+            totalCost *= 0.95;
+        } else if (days > 10) {
+            totalCost *= 0.90;
+        }
+        return totalCost;
+    }
+
+    void update(string newBrand, string newModel, float newRentalPrice, int newDays) {
+        brand = newBrand;
+        model = newModel;
+        rentalPrice = newRentalPrice;
+        days = newDays;
+        availabilityStatus = true;
+    }
+
+    void display() {
+        cout << "Car ID: " << regno << endl;
+        cout << "Brand: " << brand << endl;
+        cout << "Model: " << model << endl;
+        cout << "Rental Price" << rentalPrice << " per day" << endl;
+        cout << "Days: " << days << endl;
+        cout << "Available: " << (availabilityStatus ? "Yes, No") << endl;
+        cout << "Revenue: $" << totalRevenue << endl << endl;
+    }
+};
+
+int main() {
+    Car c1("G39", "Honda", "Civic", 140, 2, true);
+    Car c2(""123", "Toyota", "City", 300.5, 5, true);
+    Car c3("V48", "Suzuki", "Mehran", 200, 1, true);
+
+    c1.display();
+    c2.display();
+    c3.display();
+
+    cout << endl << "Renting cars" << endl;
+    c1.rent();
+    c3.rent();
+
+    c1.display();
+    c3.display();
+
+    return 0;
+}
