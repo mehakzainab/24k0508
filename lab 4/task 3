@@ -1,0 +1,96 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Car {
+    string brand;
+    string model;
+    float rentalPrice;
+    int days;
+    bool availabilityStatus;
+
+public:
+    Car(string b, string m, float r, int d, bool avail) {
+        brand = b;
+        model = m;
+        rentalPrice = r;
+        days = d;
+        availabilityStatus = avail;
+    }
+
+    Car(const Car &obj) {
+        brand = obj.brand;
+        model = obj.model;
+        rentalPrice = obj.rentalPrice;
+        days = obj.days;
+        availabilityStatus = obj.availabilityStatus;
+        cout << "Copy Constructor Called"<<endl;
+    }
+
+    ~Car() {
+        cout << "Destructor Called. Object is being removed."<<endl;
+    }
+
+    bool isAvailable() {
+        return availabilityStatus;
+    }
+
+    void rent() {
+        if (availabilityStatus) {
+            float finalPrice = applyDiscount();
+            availabilityStatus = false;
+            cout << "Car rented successfully! Final price: $" << finalPrice << endl;
+        } else {
+            cout << "Car not available for rent."<<endl;
+        }
+    }
+
+    float applyDiscount() { 
+        float finalPrice = rentalPrice;
+        if (days > 5 && days <= 10) {
+            finalPrice *= 0.95;  
+            cout << "Applied 5% discount!"<<endl;
+        } else if (days > 10) {
+            finalPrice *= 0.90;  
+            cout << "Applied 10% discount!"<<endl;
+        }
+        return finalPrice;
+    }
+
+    void modifyDetails(string newBrand, string newModel, float newRentalPrice, int newDays, bool newAvailability) {
+        brand = newBrand;
+        model = newModel;
+        rentalPrice = newRentalPrice;
+        days = newDays;
+        availabilityStatus = newAvailability;
+        cout << "Car details updated!"<<endl;
+    }
+
+    void display() {
+        cout << "Car: " << brand << " " << model 
+             << "  Rental Price: $" << rentalPrice 
+             << "  Days: " << days 
+             << "  Available: " << (availabilityStatus ? Yes : No") << endl;
+    }
+};
+
+int main() {
+    Car c1("Suzuki", "Mehran", 200.5, 7, true);
+    cout << "Original Car Details:"<<endl;
+    c1.display();
+
+    Car c2(c1);
+    cout << "Copied Car Details"<<endl;
+    c2.display();
+
+    c1.modifyDetails("Suzuki", "Mehran VXR", 250.0, 10, true);
+    cout << "\nAfter modifying the original car:\n";
+    c1.display();
+    c2.display();
+
+    cout << "\nRenting the copied car...\n";
+    c2.rent();
+    c2.display();
+
+    return 0;
+}
