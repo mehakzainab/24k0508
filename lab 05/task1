@@ -1,0 +1,35 @@
+#include "iostream"
+#include <cstring>
+using namespace std;
+
+class Apartment
+{
+public:
+    int ID;
+    string address;
+    char* name;
+    Apartment(int i, string addr, char* owner) : ID(i), address(addr){
+        name = new char[strlen(owner)+1];
+        strcpy(name, owner);
+    }
+    Apartment(Apartment &obj):ID(obj.ID), address(obj.address)
+    {
+        owner = new char[strlen(obj.owner) + 1];
+        strcpy(owner, obj.owner);
+    }
+    void display()
+    {
+        cout << "ID: " << ID << ", Address: " << address << ", Name: " << owner << endl;
+    }
+    ~Apartment(){
+        delete[] owner;
+    }
+};
+
+int main(){
+    Apartment a1(350, "a block", "mehak");
+    Apartment a2=a1;
+    a1.display();
+    cout<<"Copied apartment"<<endl;
+    a2.display();
+}
