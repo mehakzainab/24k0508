@@ -1,0 +1,68 @@
+#include<iostream>
+#include <cmath> //using this lib for taking mag
+using namespace std;
+class complex{
+	int real;
+	int img;
+	
+	public:
+		//int ans;
+
+		complex(int r, int i):real(r),img(i){
+		}
+		complex(){
+		};
+	
+	complex operator +(complex &c){
+		complex ans;
+		  ans.real=real+c.real;
+		  ans.img=img+c.img;
+		  return ans;
+		}
+			complex operator -(complex &c){
+		complex ans;
+		  ans.real=real-c.real;
+		  ans.img=img-c.img;
+		  return ans;
+		}
+			complex operator *(complex &c){
+		complex ans;
+		  ans.real=real*c.real - img *c.img;
+		  ans.img=real*c.img+img*c.real;
+		  return ans;
+		}
+			complex operator /(complex &c){
+		complex ans;
+		int den=(c.real*c.real+c.img*c.img);
+		ans.real=((real*c.real)+(img*c.img))/den;
+		 ans.img=((img*c.real)-(real*c.img))/den;
+		  return ans;
+		}
+		friend ostream& operator<<(ostream& os, const complex& e);
+       friend double magnitude(const complex& c);
+
+};
+ostream& operator<<(ostream& os, const complex& e){
+	os<<e.real;
+	os<<" + "<<e.img<<"i"<<endl;
+	return os;
+	
+}
+double magnitude(const Complex &c) {
+    return sqrt(c.real * c.real + c.img * c.img);// idhar jo sqrt hai woh lib ka function hai
+}
+int main(){
+     complex c1(3,4);
+	 complex c2(4,6);
+	
+	 complex c3=c1+c2;
+	 cout<<c3;
+	  c3=c1-c2;
+	  cout<<c3;
+	    c3=c1*c2;
+	   cout<<c3;
+	     c3=c1/c2;
+	 cout<<c3;
+ cout << "Magnitude of c1: " << magnitude(c1) << endl;
+    cout << "Magnitude of c2: " << magnitude(c2) << endl;
+}
