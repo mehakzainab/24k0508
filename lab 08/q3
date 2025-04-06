@@ -1,0 +1,48 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+class vector2d{
+	int x,y;
+	public:
+		vector2d():x(0),y(0){
+		}
+		vector2d(int x,int y):x(x),y(y){
+		}
+		vector2d operator +(vector2d &a){
+			
+			vector2d b;
+			
+			b.x=x+a.x;
+			b.y=y+a.y;
+			return b;
+		}
+		vector2d operator -(vector2d &a){
+			vector2d b;
+			b.x=x-a.x;
+			b.y=y-a.y;
+			return b;
+		}
+		
+		vector2d operator *(double scalar){
+			return vector2d(x*scalar,y*scalar);
+		}
+		friend int dotproduct(vector2d &a,vector2d &b);
+		friend ostream& operator<<(ostream &os, const vector2d &a);
+};
+int dotproduct(vector2d &a,vector2d &b){
+	return (a.x*b.x,a.y*b.y);
+	
+}
+ ostream& operator<<(ostream &os, const vector2d &a){
+ 	os <<a.x;
+ 	os<<a.y;
+ 	return os;
+ }
+ int main(){
+ 	vector2d v1(4, 7),v2(5,7);
+	 cout<<"add"<<v1+v1<<endl;
+	 cout<<"sub"<<v1-v2<<endl;
+	 cout<<"multiply "<<v1*5.0<<endl;
+	 cout<<"dot product"<<dotproduct(v1,v2);
+	 
+	 }
