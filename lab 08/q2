@@ -1,0 +1,53 @@
+#include<iostream>
+using namespace std;
+class manager;
+class account{
+	int accountnumber;
+	int accountbalance;
+	friend class manager;
+	friend void transferfund(account &c1,account &c2,int amount);
+	public:
+		account(int number,int balance):accountnumber(number),accountbalance(balance){
+		}
+		
+	
+};
+class manager{
+	public:
+		void display(account &a){
+			cout<< a.accountnumber<<" ";
+			cout<< a.accountbalance<<endl;
+		}
+		void deposite(account &d,int amount){
+			d.accountbalance+=amount;
+			
+		}
+		void withdrawl(account &w,int amount){
+			if(amount<w.accountbalance){
+				w.accountbalance-=amount;
+			}
+			else
+			cout<<"not enough money";
+		}
+		
+};
+void transferfund(account &c1,account &c2,int amount){
+	if(amount<= c1.accountbalance){
+		c1.accountbalance-=amount;
+		c2.accountbalance+=amount;
+	}
+
+	
+}
+int main(){
+	account ac(5,500),ac2(9,0);
+	manager m;
+	m.display(ac);
+	m.deposite(ac,50);
+	m.display(ac);
+	m.withdrawl(ac,450);
+	m.display(ac);
+	m.display(ac2);
+	transferfund(ac,ac2,50);
+	m.display(ac2);
+}
