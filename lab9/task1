@@ -1,0 +1,68 @@
+#include <iostream>
+using namespace std;
+
+class patient {
+public:
+    string name;
+    string id;
+
+    patient(string p, string id) : name(p), id(id) {}
+
+    virtual void displaytreatment() = 0;
+    virtual int calculatecost(int days) = 0; // Pass days as parameter
+};
+
+class inpatient : public patient {
+public:
+    int cost;
+
+    inpatient(string p, string id) : patient(p, id), cost(0) {}
+
+    void displaytreatment() {
+        cout << "Name: " << name << ", ID: " << id << ", Treatment: Inpatient" << endl;
+    }
+
+    int calculatecost(int days) {
+        if (days > 5) {
+            cost += 500;
+        } else {
+            cost += 200;
+        }
+        return cost;
+    }
+};
+
+class outpatient : public patient {
+public:
+    int totalcost;
+
+    outpatient(string p, string id) : patient(p, id), totalcost(0) {}
+
+    void displaytreatment() {
+        cout << "Name: " << name << ", ID: " << id << ", Treatment: Outpatient" << endl;
+    }
+
+    int calculatecost(int days) {
+        if (days > 5) {
+            totalcost += 500;
+        } else {
+            totalcost = 200;
+        }
+        return totalcost;
+    }
+};
+
+int main() {
+    patient* p1 = new inpatient("amir", "123");
+    p1->displaytreatment();
+    cout << "Total Cost: " << p1->calculatecost(6) << endl;
+
+    patient* p2 = new outpatient("alina", "54");
+    p2->displaytreatment();
+    cout << "Total Cost: " << p2->calculatecost(4) << endl;
+
+    delete p1;
+    delete p2;
+
+    return 0;
+}
