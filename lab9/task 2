@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+class menuiteams {
+public:
+    string dishname;
+    double price;
+
+    menuiteams(string dn, double p) : dishname(dn), price(p) {}
+
+    virtual void showdetail() = 0;
+    virtual void prepare() = 0;
+};
+
+class appetizer : public menuiteams {
+public:
+    appetizer(string dn, double p) : menuiteams(dn, p) {}
+
+    void showdetail() {
+        cout << "Appetizer: " << dishname << ", Price: $" << price << endl;
+    }
+
+    void prepare() {
+        cout << "Preparing appetizer: " << dishname << endl;
+    }
+};
+
+class maincourse : public menuiteams {
+public:
+    maincourse(string dn, double p) : menuiteams(dn, p) {}
+
+    void showdetail() {
+        cout << "Main Course: " << dishname << ", Price: $" << price << endl;
+    }
+
+    void prepare() {
+        cout << "Preparing main course: " << dishname << endl;
+    }
+};
+
+int main() {
+    menuiteams* m1 = new appetizer("curry", 4.99);
+    menuiteams* m2 = new maincourse("Grilled Chicken", 12.49);
+
+    m1->showdetail();
+    m1->prepare();
+
+    cout << endl;
+
+    m2->showdetail();
+    m2->prepare();
+
+    delete m1;
+    delete m2;
+
+    return 0;
+}
