@@ -1,0 +1,52 @@
+#include<iostream>
+using namespace std;
+class shipment{
+    public:
+    string trackingnumber;
+    double weight;
+    
+    shipment(string number, double weight){
+       this->trackingnumber=trackingnumber;
+        this->weight= weight;
+    }
+    virtual void estimateDeliveryTime()=0;
+    virtual void showdetail()=0;
+
+};
+class airfreight: public shipment{
+    public:
+    airfreight(string trackingnumber,double weight):shipment(trackingnumber,weight){}
+    void estimateDeliveryTime() {
+        cout << "estimating delivery time of air freight" << endl;
+    }
+    
+    void showdetail(){
+        cout<<"tracking number"<<trackingnumber<<endl;
+        cout<<"weight"<< weight <<endl;
+    
+    }
+
+};
+class groundshipment: public shipment{
+    public:
+    groundshipment(string number,double weight):shipment(number,weight){}
+    void estimateDeliveryTime() {
+        cout << "estimating delivery time of air freight" << endl;
+    }
+    void showdetail(){
+        cout<<"tracking number"<<trackingnumber<<endl;
+        cout<<"weight"<< weight <<endl;
+    
+    }
+};
+int main(){
+    airfreight af("k23",60);
+    af.estimateDeliveryTime();
+    af.showdetail();
+    groundshipment gs("k24",40);
+    gs.estimateDeliveryTime();
+
+    gs.showdetail();
+
+
+}
