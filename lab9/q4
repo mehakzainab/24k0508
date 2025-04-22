@@ -1,0 +1,40 @@
+#include<iostream>
+using namespace std;
+class weathersensor{
+public:
+virtual void readdata()=0;
+virtual void displayreport()=0;
+
+};
+class thermometer: public weathersensor{
+public:
+void readdata(){
+    cout<<"reading data from thermomter"<<endl;
+}
+void displayreport(){
+    cout<<"report"<<endl;
+}
+
+
+};
+class barometer : public weathersensor{
+    public:
+    void readdata(){
+        cout<<"reading data from barometer"<<endl;
+    }
+    void displayreport(){
+        cout<<"report"<<endl;
+    }
+
+};
+int main(){
+   thermometer t;
+   barometer b;
+   t.displayreport();
+   t.readdata();
+   b.readdata();
+   b.displayreport();
+
+     
+
+}
