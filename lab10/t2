@@ -1,0 +1,34 @@
+#include<iostream>
+#include<fstream>
+#include<sstream>
+using namespace std;
+int main(){
+    string line;
+    ifstream file;
+file.open("vehical.txt");
+if(!file.is_open()){
+    cout<<"error opening file"<<endl;
+     exit(1);
+}
+while (getline(file,line)){
+    cout<<line<<endl;
+     
+    istringstream s(line);
+    string type,id,name,year,extra,certification;
+
+    getline(s,type,',');
+    getline(s,id,',');
+    getline(s,name,',');
+    getline(s, year, ',');
+     getline(s, extra, ',');
+    getline(s, certification, ',');
+    cout << "Type: " << type << endl;
+    cout << "ID: " << id << endl;
+    cout << "Name: " << name << endl;
+    cout << "Year: " << year << endl;
+    cout << "Extra Data: " << extra << endl;
+    cout << "Certification: " << certification << endl;
+    }
+
+    file.close();
+}
