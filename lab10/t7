@@ -1,0 +1,25 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+int main(){
+ofstream file;
+file.open("sensor_log.txt",ios::out|ios::trunc);
+if(!file.is_open()){
+    cout<<"file not exist"<<endl;
+    exit(1);
+}
+else{
+file<<"hello i am from file"<<endl;
+
+cout<<"calling for the first time "<<file.tellp()<<endl;
+file<<"hello again"<<endl;
+ 
+cout<<"2nd time calling "<<file.tellp()<<endl;
+file<<"hiiii"<<endl;
+ 
+cout<<"3rd time calling "<<file.tellp()<<endl;
+file.close();
+}
+
+}
