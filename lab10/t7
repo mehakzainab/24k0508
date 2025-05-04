@@ -10,15 +10,13 @@ if(!file.is_open()){
     exit(1);
 }
 else{
-file<<"hello i am from file"<<endl;
+file<<"sensor 1: 25.5 C"<<endl;
 
 cout<<"calling for the first time "<<file.tellp()<<endl;
-file<<"hello again"<<endl;
+file<<"sensor 2: 98.1 %RH"<<endl;
  
 cout<<"2nd time calling "<<file.tellp()<<endl;
-file<<"hiiii"<<endl;
- 
-cout<<"3rd time calling "<<file.tellp()<<endl;
+
 file.close();
 }
 
