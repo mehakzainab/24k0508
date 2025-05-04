@@ -1,0 +1,49 @@
+#include<iostream>
+#include<fstream>
+#include<sstream>
+using namespace std;
+int main(){
+    string line;
+    fstream file;
+file.open("vehical.txt",ios::in|ios::out|ios::trunc);
+if(!file.is_open()){
+    cout<<"error opening file"<<endl;
+     exit(1);
+}
+else{
+    file<<"AutonomousCar,AC101,RoboTaxi,2023,SW:4.5,CERT-AI"
+    "ElectricVehicle,EV202,voltz,2022,Battery:150,CERT-ECO"
+    
+    "HybridTruck,HT303GreenHauler,2021,Cargo:5000|Battery:75,CERT-HYBRID"<<endl;
+}
+
+
+
+file.seekg(0);
+while (getline(file,line)){
+    cout<<line<<endl;
+     
+    istringstream s(line);
+    string type,id,name,year,extra,certification;
+
+    getline(s,type,',');
+    getline(s,id,',');
+    getline(s,name,',');
+    getline(s, year, ',');
+     getline(s, extra, ',');
+    getline(s, certification, ',');
+    cout << "Type: " << type << endl;
+    cout << "ID: " << id << endl;
+    cout << "Name: " << name << endl;
+    cout << "Year: " << year << endl;
+    cout << "Extra Data: " << extra << endl;
+    cout << "Certification: " << certification << endl;
+    
+    int num=stoi( year);
+    cout<<"num is "<<num;
+    
+    
+    }
+
+    file.close();
+}
