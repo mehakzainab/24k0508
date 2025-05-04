@@ -1,0 +1,26 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+int main(){
+    fstream file("config.txt",ios::in|ios::out|ios::trunc);
+    if(!file.is_open()){
+        cout<<"error opening the file"<<endl;
+        exit(1);
+    }
+    else{
+        file<<"AAAAABBBBBCCCCC";
+       
+    }
+    file.close();
+    file.open("config.txt", ios::in | ios::out);
+    if(!file.is_open()){
+        cout<<"error opening the file"<<endl;
+        exit(1);
+    }
+    file.seekp(5,ios::beg);
+    file<<"XXXXX";
+    file.close();
+
+
+}
