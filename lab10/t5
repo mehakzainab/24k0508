@@ -1,0 +1,92 @@
+#include<iostream>
+#include<fstream>
+#include<sstream>
+using namespace std;
+int main(){
+    string line;
+    fstream file;
+file.open("vehical.txt",ios::in|ios::out|ios::trunc);
+if(!file.is_open()){
+    cout<<"error opening file"<<endl;
+     exit(1);
+}
+else{
+    file<<"AutonomousCar,AC101,RoboTaxi,2023,SW:4.5,CERT-AI"
+   << "ElectricVehicle,EV202,voltz,2022,Battery:150,CERT-ECO"
+    
+  <<  "HybridTruck,HT303,GreenHauler,2021,Cargo:5000|Battery:75,CERT-HYBRID"<<endl;
+}
+
+
+
+file.seekg(0);
+while (getline(file,line)){
+    cout<<line<<endl;
+     
+    istringstream s(line);
+    string type,id,name,year,extra,certification;
+
+    getline(s,type,',');
+    getline(s,id,',');
+    getline(s,name,',');
+    getline(s, year, ',');
+     getline(s, extra, ',');
+    getline(s, certification, ',');
+    cout << "Type: " << type << endl;
+    cout << "ID: " << id << endl;
+    cout << "Name: " << name << endl;
+    cout << "Year: " << year << endl;
+    cout << "Extra Data: " << extra << endl;
+    cout << "Certification: " << certification << endl;
+    
+    int num=stoi( year);
+    cout<<"num is "<<num;
+    if(type=="AutonomousCar"){
+        size_t pos = extra.find(":");
+        if(pos==string:: npos){
+            cout<<"colon not found"<<endl;
+            exit(1);
+        }
+        
+        string change=extra.substr(pos+1);
+       float ans= stof(change);
+       cout<<"ans is"<<ans;
+    }
+        else if(type=="ElectricVehicle"){
+            size_t pos=extra.find(":");
+            if(pos==string:: npos){
+                cout<<"colon not found"<<endl;
+    
+            }
+            string change=extra.substr(pos+1);
+           int ans= stoi(change);
+           cout<<"ans is"<<ans;
+        }
+        else if(type=="HybridTruck"){
+            size_t pos = extra.find(":");
+            size_t pos2 = extra.find("|");
+            if(pos == string::npos && pos2== string::npos){
+                cout<<"not found"<<endl;
+                exit(1);
+            }
+            string change = extra.substr(pos +1,pos2);
+            int ans = stoi(change);
+            string change2 = extra.substr(pos2+7);
+            int store = stoi(change2);
+            cout<<"cargo number is "<< ans <<" battery number is"<<store<<endl;
+
+        }
+        else
+        cout<<"error (not from this file)"<<endl;
+        
+        
+        
+
+    
+    }
+    
+
+    
+
+    file.close();
+}
