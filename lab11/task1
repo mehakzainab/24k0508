@@ -47,7 +47,7 @@ public:
     // Member function version of operator+
     Matrix operator+(const Matrix &other) {
         if (rows != other.rows || cols != other.cols) {
-            throw dimensionmismatchexception(" - matrices have different dimensions.");
+            throw dimensionmismatchexception(" matrices have different dimensions.");
         }
 
         Matrix result(rows, cols);
