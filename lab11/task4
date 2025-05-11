@@ -1,0 +1,81 @@
+
+#include <iostream>
+#include <string>
+#include <exception>
+using namespace std;
+
+class DatabaseException : public exception
+{
+public:
+    const char *what() const noexcept override
+    {
+        return "A database error occurred.";
+    }
+};
+
+class ConnectionFailedException : public DatabaseException {};
+class QueryTimeoutException : public DatabaseException{};
+
+template <typename T>
+class DatabaseConnector
+{
+    T data_name;
+
+public:
+    DatabaseConnector(T name) :  data_name(name) {}
+
+    void connect()
+    {
+        if ( data_name == "invalid_db")
+        {
+            throw ConnectionFailedException();
+        }
+        else if ( data_name == "slow_db")
+        {
+            throw DatabaseException();
+        }
+        else
+        {
+            cout << "Connected to " <<  data_name << " successfully." << endl;
+        }
+    }
+
+    void runQuery(string query)
+    {
+        if (query == "slow_query")
+        {
+            throw QueryTimeoutException();
+        }
+        else
+        {
+            cout << "Query executed: " << query << endl;
+        }
+    }
+};
+
+int main()
+{
+    try
+    {
+        cout << "Attempting to connect to invalid data base" << endl;
+        DatabaseConnector<string> connector1("invalid data base");
+        connector1.connect();
+    }
+    catch (const ConnectionFailedException &e)
+    {
+        cout << "Caught ConnectionFailedException -  what(): " << e.what() << endl;
+    }
+
+    try
+    {
+        cout << "Attempting to connect to slow data base." << endl;
+        DatabaseConnector<string> connector2("slow data base");
+        connector2.connect();
+    }
+    catch (const DatabaseException &e)
+    {
+        cout << "Caught a general DatabaseException -  what(): " << e.what() << endl;
+    }
+
+    return 0;
+}
